@@ -24,7 +24,6 @@ print(json.dumps(results, sort_keys = True, indent = 4))
 
 data = results['data']
 
-print
 
 for currency in data:
     rank = currency['rank']
