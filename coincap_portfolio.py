@@ -2,7 +2,7 @@ import os
 import json
 import requests
 from datetime import datetime
-from prettytable import PretyTable
+from prettytable import PrettyTable
 from colorama import Fore, Back, Style
 
 convert = 'EUR'
@@ -27,7 +27,7 @@ print()
 portfolio_value = 0.00
 last_updated = 0
 
-table = PretyTable(['Asset', 'Amount Owed', convert + 'Value', 'Price', '1h', '24h', '7d'])
+table = PrettyTable(['Asset', 'Amount Owed', convert + 'Value', 'Price', '1h', '24h', '7d'])
 
 with open('portfolio.txt') as inp:
     for line in input:
@@ -67,8 +67,10 @@ with open('portfolio.txt') as inp:
 
         portfolio_value += value
 
-        value_string = '{:,}'.format(round(value, 2)
+        value_string = '{:,}'.format(round(value, 2))
+
         table.add_row([name + '('+symbol+')',
+                        amount,
                        '$'+ value_string,
                        '$'+ str(price),
                        str(hour_change),
@@ -81,6 +83,6 @@ print()
 
 portfolio_value_string = '{:,}'.format(round(portfolio_value,2)
 last_updated_string = datetime.fromtimestamp(last_updated).strftime('%B %d, %Y at %I:%M%p')
-print("Total Portfolio value: " + portfolio_value_string)
+print("Total Portfolio value: " + Back.GREEN + '$' + portfolio_value_string + Style.RESET_ALL)
 print("API results last updated on " + last_updated_string)
 print()
