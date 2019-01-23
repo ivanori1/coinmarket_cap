@@ -9,7 +9,7 @@ convert = 'EUR'
 base_url = 'https://api.coinmarketcap.com/v2/'
 listings_url = 'listings/?convert='+ convert
 url_end = '?structure=array&convert='+convert
-request = requests.get(listings_url)
+request = requests.get(base_url + listings_url)
 results = request.json()
 data = results['data']
 
@@ -30,7 +30,7 @@ last_updated = 0
 table = PrettyTable(['Asset', 'Amount Owed', convert + 'Value', 'Price', '1h', '24h', '7d'])
 
 with open('portfolio.txt') as inp:
-    for line in input:
+    for line in inp:
         ticker, amount = line.split()
         ticker = ticker.upper()
         ticker_url = base_url + 'ticker/' + str(ticker_url_pairs[ticker]) + '/' + url_end
@@ -81,7 +81,7 @@ with open('portfolio.txt') as inp:
 print(table)
 print()
 
-portfolio_value_string = '{:,}'.format(round(portfolio_value,2)
+portfolio_value_string = '{:,}'.format(round(portfolio_value,2))
 last_updated_string = datetime.fromtimestamp(last_updated).strftime('%B %d, %Y at %I:%M%p')
 print("Total Portfolio value: " + Back.GREEN + '$' + portfolio_value_string + Style.RESET_ALL)
 print("API results last updated on " + last_updated_string)
